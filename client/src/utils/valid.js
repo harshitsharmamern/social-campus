@@ -27,6 +27,7 @@ const valid = ({ fullname, username, email, password, cf_password }) => {
       err.cf_password = "Password does not match.";
     }
 
+    // console.log(err);
     return {
         errMsg: err,
         errLength: Object.keys(err).length  

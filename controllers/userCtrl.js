@@ -45,7 +45,7 @@ const userCtrl = {
       if (!fullname) {
         return res.status(400).json({ msg: "Please add your full name." });
       }
-
+      console.log({avatar});
       await Users.findOneAndUpdate(
         { _id: req.user._id },
         { avatar, fullname, mobile, address, story, website, gender }

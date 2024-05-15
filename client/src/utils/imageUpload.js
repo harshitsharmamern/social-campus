@@ -26,11 +26,13 @@ export const imageUpload = async (images) => {
             formData.append("file", item);  
         }
 
-        
-        formData.append("upload_preset", "ADD VALUE HERE");
-        formData.append("cloud_name", "ADD VALUE HERE");
+        // CLOUDINARY_URL=cloudinary://136561979793976:gwDnqaEYHpFrtamkyR-DJJAV5_M@instalnctbhau
+        const url = "https://api.cloudinary.com/v1_1/instalnctbhau/image/upload";
 
-        const res = await fetch("ADD CLOUDINARY IMAGE UPLOAD LINK HERE", {
+        formData.append("upload_preset", "insta-clone");
+        formData.append("cloud_name", "instalnctbhau");
+        // const url = '/api/posts'
+        const res = await fetch(url, {
             method: "POST",
             body: formData
         })
@@ -40,5 +42,6 @@ export const imageUpload = async (images) => {
         
       
     }
+    console.log({imgArr});
     return imgArr;
 }

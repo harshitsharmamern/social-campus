@@ -39,18 +39,21 @@ app.use('/api', require('./routes/adminRouter'));
 app.use('/api', require('./routes/notifyRouter'));
 app.use('/api', require('./routes/messageRouter'));
 //#endregion
+const    link="mongodb+srv://sharmaharshit769:portfolio@cluster0.ofeae87.mongodb.net/social-campus"
 
+// const MONGODB_URL_test = "mongodb://localhost:27017/social-media-clone"
 
-const URI = process.env.MONGODB_URL;
-mongoose.connect(URI, {
-    useCreateIndex:true,
-    useFindAndModify:false,
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-}, err => {
-    if(err) throw err;
-    console.log("Database Connected!!")
-})
+// const URI = process.env.MONGODB_URL;
+const url = link;
+mongoose
+    .connect(link)
+    .then(() => {
+      console.log("Connected to Database");
+    })
+    .catch((err) => {
+      console.log("Some error occured in database connection", err);
+    });
+
 
 const port = process.env.PORT || 8080;
 http.listen(port, () => {

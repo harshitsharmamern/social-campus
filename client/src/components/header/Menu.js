@@ -19,6 +19,7 @@ const Menu = () => {
 
   const isActive = (pn) => {
     if (pn === pathname) return "active";
+
   };
 
   return (

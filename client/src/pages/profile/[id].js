@@ -15,6 +15,7 @@ const Profile = () => {
   const [saveTab, setSaveTab] = useState(false);
 
   useEffect(() => {
+    console.log({val:profile.ids});
     if(profile.ids.every(item => item !== id )){
       dispatch(getProfileUsers({ id, auth }));
 
@@ -23,8 +24,9 @@ const Profile = () => {
 
     return (
       <div className="profile">
+        
+        
         <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
-
         {auth.user._id === id && (
           <div className="profile_tab">
             <button
@@ -41,15 +43,22 @@ const Profile = () => {
             </button>
           </div>
         )}
-
+{console.log({profile})}
         {profile.loading ? (
           <img className="d-block mx-auto my-4" src={LoadIcon} alt="Loading" />
         ) : (
           <>
+          
             {
               saveTab
-              ? <Saved auth={auth} dispatch={dispatch}  />
-              : <Posts auth={auth} profile={profile} dispatch={dispatch} id={id} />
+              ? (<>
+              <Saved auth={auth} dispatch={dispatch}  />
+              </>
+               )
+              : (<>
+              <Posts auth={auth} profile={profile} dispatch={dispatch} id={id} />
+              </>
+              )
             }
           </>
         )}

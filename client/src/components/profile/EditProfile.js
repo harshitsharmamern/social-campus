@@ -40,6 +40,7 @@ const EditProfile = ({ setOnEdit }) => {
 
   const handleSubmit = e => {
       e.preventDefault();
+      // console.log({userData,avatar,auth});
       dispatch(updateProfileUser( {userData, avatar, auth} ) );
   };
 

@@ -6,10 +6,10 @@ const authCtrl = {
   register: async (req, res) => {
     try {
       const { fullname, username, email, password, gender } = req.body;
-
-      let newUserName = username.toLowerCase().replace(/ /g, "");
-
-      const user_name = await Users.findOne({ username: newUserName });
+      
+      // let newUserName = username.toLowerCase().replace(/ /g, "");
+      console.log("running 11");
+      const user_name = await Users.findOne({ username: username });
       if (user_name) {
         return res.status(400).json({ msg: "This username is already taken." });
       }
@@ -26,25 +26,31 @@ const authCtrl = {
           .status(400)
           .json({ msg: "Password must be at least 6 characters long." });
       }
+      console.log("running 29");
 
       const passwordHash = await bcrypt.hash(password, 12);
+      console.log("running 32");
 
-      const newUser = new Users({
+
+
+      const newUser = await Users.create({
         fullname,
-        username: newUserName,
+        username: username,
         email,
         password: passwordHash,
         gender,
       });
+      console.log("running 40  ok fine");
 
       const access_token = createAccessToken({ id: newUser._id });
       const refresh_token = createRefreshToken({ id: newUser._id });
-
+      console.log("running 43");
       res.cookie("refreshtoken", refresh_token, {
         httpOnly: true,
         path: "/api/refresh_token",
         maxAge: 30 * 24 * 60 * 60 * 1000, //validity of 30 days
       });
+      console.log("running 53");
 
       res.json({
         msg: "Registered Successfully!",
@@ -54,13 +60,20 @@ const authCtrl = {
           password: "",
         },
       });
+      console.log("running 63");
 
-      await newUser.save();
+
+      // await newUser.save();
 
       res.json({ msg: "registered" });
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      console.log("running 70");
+      console.log({err});
+      // return res.status(500).json({ msg: err.message });
     }
+    console.log("running 74 last");
+
+
   },
 
   changePassword: async (req, res) => {

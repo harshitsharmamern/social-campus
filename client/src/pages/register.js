@@ -7,7 +7,7 @@ const Register = () => {
     const {auth, alert} = useSelector(state => state);
     const dispatch = useDispatch();
     const history = useHistory();
-
+    console.log(auth.token);
      const initialState = { fullname: "", username: "", email: "", password: "", cf_password: "", gender: "male" };
      const [userData, setUserData] = useState(initialState);
      const { fullname, username, email, password, cf_password } = userData;
@@ -37,7 +37,7 @@ const Register = () => {
       <div className="auth_page">
         <form onSubmit={handleSubmit} className="inner-shadow">
           <h3 className="text-uppercase text-center mb-4 auth-heading">
-            Campus Connect
+            Harshit Verse-C
           </h3>
           <div className="mb-3">
             <label htmlFor="fullname" className="form-label">

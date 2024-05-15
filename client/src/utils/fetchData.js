@@ -20,11 +20,12 @@ export const putDataAPI = async (url, post, token) => {
   });
   return res;
 };
-
-export const patchDataAPI = async (url, post, token) => {
+//http://localhost:8080/api/user
+export const patchDataAPI = async (url, post, token) => {  //url- user  post-{ ...userData, avatar: avatar ? media[0].url : auth.user.avatar }
   const res = await axios.patch(`/api/${url}`, post, {
     headers: { Authorization: token },
   });
+  console.log({res});
   return res;
 };
 

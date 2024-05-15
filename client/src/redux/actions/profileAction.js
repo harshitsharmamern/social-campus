@@ -11,12 +11,11 @@ export const PROFILE_TYPES = {
   GET_ID: "GET_PROFILE_ID",
   GET_POSTS: "GET_PROFILE_POSTS",
   UPDATE_POST: "UPDATE_PROFILE_POSTS",
-
 };
 
 
 export const getProfileUsers = ({ id, auth}) => async (dispatch) => {
-
+  console.log(id);
   dispatch({type:PROFILE_TYPES.GET_ID, payload: id})
 
     try {
@@ -41,6 +40,7 @@ export const getProfileUsers = ({ id, auth}) => async (dispatch) => {
 
 
 export const updateProfileUser = ({userData, avatar, auth}) => async (dispatch) => {
+  console.log("yes");
   if(!userData.fullname){
     return dispatch({type: GLOBALTYPES.ALERT, payload: {error: "Please enter full name."}})
   }
@@ -70,8 +70,8 @@ export const updateProfileUser = ({userData, avatar, auth}) => async (dispatch) 
       media = await imageUpload([avatar]);
     }
 
+    console.log({media,...userData,avatar});
     const res = await patchDataAPI("user", { ...userData, avatar: avatar ? media[0].url : auth.user.avatar }, auth.token);
-
     dispatch({
       type: GLOBALTYPES.AUTH,
       payload: {
@@ -90,6 +90,7 @@ export const updateProfileUser = ({userData, avatar, auth}) => async (dispatch) 
     });
 
   } catch (err) {
+    console.log({err});
     dispatch({
       type: GLOBALTYPES.ALERT,
       payload: { error: err.response.data.msg },
